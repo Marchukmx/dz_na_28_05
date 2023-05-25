@@ -1,30 +1,23 @@
-#DOMASHKA
-#1
+#2
 
-class PrimeGenerator:
-    def __init__(self):
-        self.primes = []
-        self.num = 2
+def average_closure():
+    total = 0
+    count = 0
 
-    def is_prime(self, n):
-        if n < 2:
-            return False
-        for i in range(2, int(n ** 0.5) + 1):
-            if n % i == 0:
-                return False
-        return True
+    def add_number(number):
+        nonlocal total, count
+        total += number
+        count += 1
 
-    def generate(self):
-        while True:
-            if self.is_prime(self.num):
-                self.primes.append(self.num)
-                yield self.num
-            self.num += 1
+    def get_average():
+        if count == 0:
+            return 0
+        return total / count
 
-prime_gen = PrimeGenerator()
-prime = prime_gen.generate()
+    return add_number, get_average
 
-print(next(prime))
-print(next(prime))
-print(next(prime))
-print(next(prime)) 
+add, average = average_closure()
+add(100)
+add(21)
+add(124314)
+print(average())
