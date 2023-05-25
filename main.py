@@ -1,30 +1,18 @@
-#DOMASHKA
-#1
+#3
+import random
 
-class PrimeGenerator:
-    def __init__(self):
-        self.primes = []
-        self.num = 2
+class PasswordGenerator:
+    def __init__(self, length, characters):
+        self.length = length
+        self.characters = characters
 
-    def is_prime(self, n):
-        if n < 2:
-            return False
-        for i in range(2, int(n ** 0.5) + 1):
-            if n % i == 0:
-                return False
-        return True
+    def generate_password(self):
+        password = ''.join(random.choice(self.characters) for _ in range(self.length))
+        return password
 
-    def generate(self):
-        while True:
-            if self.is_prime(self.num):
-                self.primes.append(self.num)
-                yield self.num
-            self.num += 1
+length = 8
+characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/.,:"][{}=+-_'
 
-prime_gen = PrimeGenerator()
-prime = prime_gen.generate()
+password_gen = PasswordGenerator(length, characters)
 
-print(next(prime))
-print(next(prime))
-print(next(prime))
-print(next(prime)) 
+print(password_gen.generate_password())
